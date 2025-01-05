@@ -6,7 +6,7 @@ declare module 'mz-react-round-slider' {
     export interface ISettings {
         svgBgColor?: string;
         onChange?: (pointers: ISettingsPointer[]) => void;
-        onDragEnd?: (pointer: ISettingsPointer) => void;
+        onDragEnd?: (pointers: ISettingsPointer[]) => void;
         min?: number | string;
         max?: number | string;
         step?: number;

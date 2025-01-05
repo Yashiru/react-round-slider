@@ -21,8 +21,7 @@ export interface IPointerProps {
     svg: ISvg;
     $svg: SVGSVGElement;
     data: IData;
-    setPointer: (pointer: IPointer, newAngleDeg: number) => void;
-    onDragEnd: (pointer: IPointer) => void;
+    setPointer: (pointer: IPointer, newAngleDeg: number, onDragEnd?: boolean) => void;
     selectedPointerId: string;
 }
 
@@ -119,7 +118,7 @@ const Pointer = (props: IPointerProps) => {
         svg.radius,
     ]);
 
-    const onValueChange = useCallback((evt: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent) => {
+    const onValueChange = useCallback((evt: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent, dragEnd?: boolean) => {
         if(!$svg || settings.disabled || pointer.disabled) return;
 
         const mouseX = evt.type.indexOf('mouse') !== -1 ? (evt as MouseEvent).clientX : (evt as TouchEvent).touches[0].clientX;
@@ -155,7 +154,7 @@ const Pointer = (props: IPointerProps) => {
             newAngleDeg = degrees;
         }
 
-        setPointer(pointer, newAngleDeg);
+        setPointer(pointer, newAngleDeg, dragEnd);
     }, [
         $svg,
         pointer,
@@ -244,8 +243,12 @@ const Pointer = (props: IPointerProps) => {
             setPointer(pointer, newAngleDeg);
         };
 
-        const onTouchEnd = () => {
-            props.onDragEnd(pointer);
+        const onTouchEnd = (evt: TouchEvent | ReactTouchEvent) => {
+            if(settings.disabled || pointer.disabled) return;
+
+            evt.preventDefault();
+            evt.stopPropagation();
+            onValueChange(evt, true);
         }
 
         $current?.addEventListener('touchmove', onTouch, {

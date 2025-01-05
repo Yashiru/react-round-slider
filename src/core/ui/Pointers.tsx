@@ -10,8 +10,7 @@ export interface IPointersProps {
     svg: ISvg;
     $svg: SVGSVGElement;
     data: IData;
-    setPointer: (pointer: IPointer, newAngleDeg: number) => void;
-    onDragEnd: (pointer: IPointer) => void;
+    setPointer: (pointer: IPointer, newAngleDeg: number, onDragEnd?: boolean) => void;
     selectedPointerId: string;
 }
 
@@ -35,7 +34,6 @@ const Pointers = (props: IPointersProps) => {
                             $svg={ $svg }
                             data={ data }
                             setPointer={ setPointer }
-                            onDragEnd={ props.onDragEnd }
                             selectedPointerId={ selectedPointerId }
                         />
                     )

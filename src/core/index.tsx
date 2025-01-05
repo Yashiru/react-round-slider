@@ -107,7 +107,7 @@ export const RoundSlider = (props: ISettings) => {
         };
     }, []);
 
-    const setPointersCallback = (pointer: IPointer, newAngleDeg: number) => {
+    const setPointersCallback = (pointer: IPointer, newAngleDeg: number, dragEnd?: boolean) => {
         if(props.disabled || !pointers.pointers || !pointer || pointer.disabled) return;
 
         newAngleDeg = roundToStep(newAngleDeg, data.stepAngleDeg, svg.startAngleDeg, svg.endAngleDeg);
@@ -116,7 +116,7 @@ export const RoundSlider = (props: ISettings) => {
         }
 
         if(pointer.angleDeg === newAngleDeg){
-            updatePointer(pointer, newAngleDeg, false);
+            updatePointer(pointer, newAngleDeg, false, dragEnd);
             return;
         }
 
@@ -171,7 +171,7 @@ export const RoundSlider = (props: ISettings) => {
                         const counterClockwise = counterClockwiseNew && counterClockwisePrev;
 
                         if(clockwise || counterClockwise) {
-                            updatePointer(pointer, splitPointDeg, true);
+                            updatePointer(pointer, splitPointDeg, true, dragEnd);
                             return;
                         }
 
@@ -208,10 +208,10 @@ export const RoundSlider = (props: ISettings) => {
             }
         }
 
-        updatePointer(pointer, newAngleDeg, pointer.angleDeg !== newAngleDeg);
+        updatePointer(pointer, newAngleDeg, pointer.angleDeg !== newAngleDeg, dragEnd);
     };
 
-    const updatePointer = (pointer: IPointer, newAngleDeg: number, angleChanged: boolean) => {
+    const updatePointer = (pointer: IPointer, newAngleDeg: number, angleChanged: boolean, dragEnd?: boolean) => {
 
         if(angleChanged) {
             const _pointers = { ...pointers };
@@ -247,6 +247,9 @@ export const RoundSlider = (props: ISettings) => {
                 });
 
                 props.onChange(updatedPointers);
+                if (dragEnd == true) {
+                    props.onDragEnd(updatedPointers);
+                }
             }
         }
 
@@ -306,7 +309,6 @@ export const RoundSlider = (props: ISettings) => {
                         $svg={ svgRef.current }
                         data={ data }
                         setPointer={ setPointersCallback }
-                        onDragEnd={props.onDragEnd}
                         selectedPointerId={ selectedPointerId }
                     />
 
