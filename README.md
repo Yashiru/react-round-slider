@@ -31,6 +31,7 @@
 - Optional animation on panel click 
 - Works well with Bootstrap and other CSS frameworks 
 - Supports two (and more) pointers overlap 
+- Track mouse up event
 - MIT license 🎁
 
 
