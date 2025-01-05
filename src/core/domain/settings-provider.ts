@@ -7,6 +7,7 @@ export interface ISettings {
 
     // events ---------------
     onChange?: (pointers: ISettingsPointer[]) => void;
+    onDragEnd?: (pointer: ISettingsPointer) => void;
 
     // data -----------------
     min?: number | string;

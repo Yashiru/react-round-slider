@@ -306,6 +306,7 @@ export const RoundSlider = (props: ISettings) => {
                         $svg={ svgRef.current }
                         data={ data }
                         setPointer={ setPointersCallback }
+                        onDragEnd={props.onDragEnd}
                         selectedPointerId={ selectedPointerId }
                     />
 

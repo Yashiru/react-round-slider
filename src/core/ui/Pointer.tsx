@@ -22,6 +22,7 @@ export interface IPointerProps {
     $svg: SVGSVGElement;
     data: IData;
     setPointer: (pointer: IPointer, newAngleDeg: number) => void;
+    onDragEnd: (pointer: IPointer) => void;
     selectedPointerId: string;
 }
 
@@ -170,6 +171,7 @@ const Pointer = (props: IPointerProps) => {
     const onMouseUp = () => {
         window.removeEventListener('mousemove', onValueChange);
         window.removeEventListener('mouseup', onValueChange);
+        props.onDragEnd(pointer);
     };
 
     const onMouseDown = (evt: ReactMouseEvent) => {
