@@ -213,7 +213,7 @@ export const RoundSlider = (props: ISettings) => {
     };
 
     const updatePointer = (pointer: IPointer, newAngleDeg: number, angleChanged: boolean, dragEnd?: boolean) => {
-        if(angleChanged) {
+        if(angleChanged || dragEnd) {
             console.log('updatePointer dragEnd: ', dragEnd);
             const _pointers = { ...pointers };
             _pointers.pointers = [...pointers.pointers];
