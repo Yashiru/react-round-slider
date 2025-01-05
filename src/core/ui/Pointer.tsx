@@ -171,7 +171,7 @@ const Pointer = (props: IPointerProps) => {
     const onMouseUp = () => {
         window.removeEventListener('mousemove', onValueChange);
         window.removeEventListener('mouseup', onValueChange);
-        props.onDragEnd(pointer);
+        window.removeEventListener('mouseup', props.onDragEnd.bind(null, pointer));
     };
 
     const onMouseDown = (evt: ReactMouseEvent) => {
@@ -181,6 +181,7 @@ const Pointer = (props: IPointerProps) => {
 
         window.addEventListener('mousemove', onValueChange);
         window.addEventListener('mouseup', onMouseUp);
+        window.addEventListener('mouseup', props.onDragEnd.bind(null, pointer));
     };
 
     const onKeyDown = (evt: KeyboardEvent) => {

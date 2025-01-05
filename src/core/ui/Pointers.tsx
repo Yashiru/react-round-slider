@@ -26,7 +26,6 @@ const Pointers = (props: IPointersProps) => {
         <>
             {
                 pointers.pointers.map(pointer => {
-
                     return (
                         <Pointer
                             key={ pointer.id }
