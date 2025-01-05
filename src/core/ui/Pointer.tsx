@@ -171,7 +171,6 @@ const Pointer = (props: IPointerProps) => {
     const onMouseUp = () => {
         window.removeEventListener('mousemove', onValueChange);
         window.removeEventListener('mouseup', onValueChange);
-        console.log('onDragEnd');
     };
 
     const onMouseDown = (evt: ReactMouseEvent) => {
@@ -245,7 +244,14 @@ const Pointer = (props: IPointerProps) => {
             setPointer(pointer, newAngleDeg);
         };
 
+        const onTouchEnd = () => {
+            props.onDragEnd(pointer);
+        }
+
         $current?.addEventListener('touchmove', onTouch, {
+            passive: false,
+        });
+        $current?.addEventListener('touchend', onTouchEnd, {
             passive: false,
         });
 
@@ -255,6 +261,7 @@ const Pointer = (props: IPointerProps) => {
 
         return () => {
             $current?.removeEventListener('touchmove', onTouch);
+            $current?.removeEventListener('touchend', onTouchEnd);
             document.removeEventListener('wheel', onWheel);
         };
     }, [
