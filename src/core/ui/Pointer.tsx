@@ -119,7 +119,6 @@ const Pointer = (props: IPointerProps) => {
     ]);
 
     const onValueChange = useCallback((evt: MouseEvent | ReactMouseEvent | TouchEvent | ReactTouchEvent, dragEnd?: boolean) => {
-        console.log('onValueChange dragEnd: ', dragEnd);
         if(!$svg || settings.disabled || pointer.disabled) return;
 
         const mouseX = evt.type.indexOf('mouse') !== -1 ? (evt as MouseEvent).clientX : (evt as TouchEvent).changedTouches[0].clientX;

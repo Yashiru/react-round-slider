@@ -108,7 +108,6 @@ export const RoundSlider = (props: ISettings) => {
     }, []);
 
     const setPointersCallback = (pointer: IPointer, newAngleDeg: number, dragEnd?: boolean) => {
-        console.log('setPointersCallback dragEnd: ', dragEnd);
         if(props.disabled || !pointers.pointers || !pointer || pointer.disabled) return;
 
         newAngleDeg = roundToStep(newAngleDeg, data.stepAngleDeg, svg.startAngleDeg, svg.endAngleDeg);
@@ -214,7 +213,6 @@ export const RoundSlider = (props: ISettings) => {
 
     const updatePointer = (pointer: IPointer, newAngleDeg: number, angleChanged: boolean, dragEnd?: boolean) => {
         if(angleChanged || dragEnd) {
-            console.log('updatePointer dragEnd: ', dragEnd);
             const _pointers = { ...pointers };
             _pointers.pointers = [...pointers.pointers];
             _pointers.pointers[pointer.index].prevAngleDeg = _pointers.pointers[pointer.index].angleDeg;
